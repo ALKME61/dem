@@ -1,0 +1,14 @@
+=== УСТАНОВКА БД "МебельОрг" (MySQL) ===
+
+1. Создать БД и таблицы:
+   source database_install/create_db.sql
+
+2. Наполнить данными:
+   source database_install/insert_data.sql
+
+3. Чтобы в cmd не было кракозябр:
+   mysql -u root -p --default-character-set=utf8
+
+4. Проверка:
+   USE mebelorg;
+   SELECT * FROM products;

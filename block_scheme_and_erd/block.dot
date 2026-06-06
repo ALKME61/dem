@@ -1,0 +1,60 @@
+digraph Flowchart {
+    rankdir=TB;
+    bgcolor="white";
+    nodesep=0.5;
+    ranksep=0.6;
+    fontname="Arial";
+    node [fontname="Arial", fontsize=11, penwidth=1.5];
+    edge [fontname="Arial", fontsize=9];
+
+    node [shape=box, style=rounded, fillcolor="#DAE8FC", style="filled,rounded", width=1.8, height=0.6];
+    start [label="START"];
+    end [label="END"];
+
+    node [shape=box, style="filled", fillcolor="#FFFFFF", width=2.5, height=0.7];
+    login [label="Login window"];
+    guest_view [label="View products\n(no filter/search)"];
+    client_view [label="View products\n(no filter/search)"];
+    manager_view [label="View products\n(filter/sort/search)"];
+    manager_orders [label="View orders"];
+    admin_view [label="View products\n(filter/sort/search)"];
+    admin_products [label="Add/Edit/Delete\nproducts"];
+    admin_orders [label="Add/Edit/Delete\norders"];
+    logout [label="Logout"];
+
+    node [shape=diamond, style="filled", fillcolor="#FFF2CC", width=1.6, height=1.2];
+    is_auth [label="Enter login\nand password"];
+    auth_valid [label="Login\nsuccessful?"];
+    which_role [label="User\nrole?"];
+    exit_ask [label="Exit\nprogram?"];
+
+    start -> login;
+
+    login -> is_auth [label="Login"];
+    login -> guest_view [label="Guest"];
+    login -> exit_ask [label="Close"];
+
+    exit_ask -> end [label="Yes"];
+    exit_ask -> login [label="No"];
+
+    is_auth -> auth_valid;
+
+    auth_valid -> login [label="No"];
+    auth_valid -> which_role [label="Yes"];
+
+    which_role -> client_view [label="Authorized\nclient"];
+    which_role -> manager_view [label="Manager"];
+    which_role -> admin_view [label="Administrator"];
+
+    manager_view -> manager_orders [label="Orders"];
+    admin_view -> admin_products [label="Products"];
+    admin_view -> admin_orders [label="Orders"];
+
+    guest_view -> logout;
+    client_view -> logout;
+    manager_orders -> logout;
+    admin_products -> logout;
+    admin_orders -> logout;
+
+    logout -> login [label="Logout"];
+}

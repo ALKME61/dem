@@ -1,0 +1,25 @@
+digraph ER {
+    rankdir=LR;
+    bgcolor="white";
+    fontname="Arial";
+    fontsize=11;
+    node [shape=record, fontname="Arial", fontsize=10];
+    edge [fontname="Arial", fontsize=9];
+
+    users [label="{users|id (PK)|role|full_name|login (UNIQUE)|password}"];
+    manufacturers [label="{manufacturers|id (PK)|name (UNIQUE)}"];
+    suppliers [label="{suppliers|id (PK)|name (UNIQUE)}"];
+    categories [label="{categories|id (PK)|name (UNIQUE)}"];
+    products [label="{products|article (PK)|name|unit|price|supplier_id (FK)|manufacturer_id (FK)|category_id (FK)|discount|quantity|description|photo}"];
+    pickup_points [label="{pickup_points|id (PK)|address (UNIQUE)}"];
+    orders [label="{orders|id (PK)|order_date|delivery_date|pickup_point_id (FK)|user_id (FK)|pickup_code|status}"];
+    order_items [label="{order_items|id (PK)|order_id (FK)|product_article (FK)|quantity}"];
+
+    products -> suppliers [label="M:1"];
+    products -> manufacturers [label="M:1"];
+    products -> categories [label="M:1"];
+    orders -> pickup_points [label="M:1"];
+    orders -> users [label="M:1"];
+    order_items -> orders [label="M:1 CASCADE"];
+    order_items -> products [label="M:1 RESTRICT"];
+}
